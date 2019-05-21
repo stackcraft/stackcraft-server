@@ -1,0 +1,49 @@
+scalar File
+scalar Json
+scalar Timestamp
+
+type User {
+  id: Int!
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+  avatar: String!
+  created: Timestamp!
+  updated: Timestamp!
+  roles: [String]!
+  super: Boolean!
+  token: String
+  settings: Json!
+}
+
+type Token {
+  accessToken: String!
+  refreshToken: String!
+  tokenExpires: Timestamp!
+}
+
+type Query {
+  user(id: Int!): User
+  users: [User]
+  currentUser: User
+}
+
+type Mutation {
+  addUser(email: String!, firstName: String, lastName: String): User!
+  deleteUser(id: Int!): User!
+  updateToken(token: String!): Token!
+  logIn(email: String!, password: String!): Token!
+  logOut: Boolean!
+}
+
+type Subscription {
+  userAdded: User!
+  userDeleted: User!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
